@@ -8,6 +8,16 @@ const removeRow = document.querySelector('.remove-row');
 const appendColumn = document.querySelector('.append-column');
 const removeColumn = document.querySelector('.remove-column');
 
+function updateButtonsState() {
+  const rowCount = document.querySelectorAll('tr').length;
+  const colCount = document.querySelectorAll('tr')[0].children.length;
+
+  appendRow.disabled = rowCount >= 10;
+  removeRow.disabled = rowCount <= 2;
+  appendColumn.disabled = colCount >= 10;
+  removeColumn.disabled = colCount <= 2;
+}
+
 appendRow.addEventListener('click', (e) => {
   const numbersRow = document.querySelectorAll('tr').length;
   const newTr = document.createElement('tr');
@@ -26,11 +36,7 @@ appendRow.addEventListener('click', (e) => {
       appendRow.disabled = true;
     }
     table.appendChild(newTr);
-
-    const updateRowLenght = document.querySelectorAll('tr').length;
-
-    appendRow.disabled = updateRowLenght >= 10;
-    removeRow.disabled = updateRowLenght <= 2;
+    updateButtonsState();
   } else {
     appendRow.disabled = true;
   }
@@ -50,12 +56,7 @@ appendColumn.addEventListener('click', (a) => {
     if (numbersColumn + 1 >= 10) {
       appendColumn.disabled = true;
     }
-
-    const updateColumnLenght =
-      document.querySelectorAll('tr')[0].children.length;
-
-    appendColumn.disabled = updateColumnLenght >= 10;
-    removeColumn.disabled = updateColumnLenght <= 2;
+    updateButtonsState();
   }
 });
 
@@ -67,12 +68,7 @@ removeColumn.addEventListener('click', (a) => {
     trs.forEach((tr) => {
       tr.removeChild(tr.lastElementChild);
     });
-
-    const updateColumnLenght =
-      document.querySelectorAll('tr')[0].children.length;
-
-    appendColumn.disabled = updateColumnLenght >= 10;
-    removeColumn.disabled = updateColumnLenght <= 2;
+    updateButtonsState();
   }
 });
 
@@ -85,11 +81,6 @@ removeRow.addEventListener('click', (a) => {
 
     lastTr.remove();
 
-    const updateRowLenght = document.querySelectorAll('tr').length;
-
-    appendRow.disabled = updateRowLenght >= 10;
-    removeRow.disabled = updateRowLenght <= 2;
-  } else {
-    removeRow.disabled = true;
+    updateButtonsState();
   }
 });
