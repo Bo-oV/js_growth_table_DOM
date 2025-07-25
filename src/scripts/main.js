@@ -63,7 +63,7 @@ removeColumn.addEventListener('click', (a) => {
   const numbersColumn = document.querySelectorAll('tr')[0].children.length;
   const trs = document.querySelectorAll('tr');
 
-  if (numbersColumn <= 10) {
+  if (numbersColumn > 2) {
     trs.forEach((tr) => {
       tr.removeChild(tr.lastElementChild);
     });
